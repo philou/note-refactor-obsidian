@@ -175,6 +175,10 @@ export default class NoteRefactor extends Plugin {
       const newNoteLink = await this.NRDoc.markdownLink(filePath);
       note = this.NRDoc.templatedContent(note, this.settings.refactoredNoteTemplate, mdView.file.basename, link, fileName, newNoteLink, '', note);
     }
+
+    let completeOriginalNote = this.NRDoc.fullNoteContent(mdView.editor);
+    note = this.NRDoc.appendFootnotes(originalNote, note, completeOriginalNote);
+
     await this.obsFile.createOrAppendFile(fileName, note);
     await this.NRDoc.replaceContent(fileName, filePath, doc, mdView.file, note, originalNote, mode);
     if(!isMultiple && this.settings.openNewNote) {

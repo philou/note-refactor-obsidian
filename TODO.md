@@ -1,0 +1,22 @@
+# TODO Map
+
+- ~~Write pseudo code~~
+- ~~Create a walking skeleton~~
+    - Call a method with the right 3 arguments
+        - understand how to get the full active buffer text
+          - Found something at: https://txt.binnyva.com/2021/08/get-current-file-content-in-obsidian/, reading HDD directly... not sure this is the best wy
+          - Another way could be to get all the lines from the Editor, and then aggregate them
+          - We are not really looking for all the text, but rather for the lines defining the footnotes
+          - Do something like the noteRemainder in NRDoc
+    - ~~implement the method to return the input~~
+    - should I update the note content ? or should I call this after the templating?
+        - noteContent: used for all refactors, better tested, 
+            - BUT: THIS CONTENT IS USED TO DO A REPLACE IN ORIGINAL NOTE!
+        - after templating: safer, no conflict
+            - but: needs new tests
+            - BUT: NEEDS TO BE CALLED IN ALL REFACTORS
+    - ~~add a 'dumb' test (no footnote ref)~~
+    - ~~build the plugin~~
+    - ~~create a test vault~~
+    - ~~test it on a test vault~~
+- Test drive the different cases

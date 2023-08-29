@@ -153,6 +153,65 @@ describe("Note content - First Line as File Name, first line as heading (modifie
 
 });
 
+describe("Append Footnotes", () => {
+
+    it("Does not change anything if the note does not contain any footnotes", () => {
+        const originalNote = ["some markdown"];
+        const note = originalNote;
+        const completeOriginalNote = [
+            "# title",
+            "",
+            ...originalNote,
+            "",
+            "## sub section"
+        ];
+        const noteWithFootnotes = doc.appendFootnotes(originalNote.join("\n"), note.join("\n"), completeOriginalNote);
+       assert.equal(noteWithFootnotes, note.join("\n"));
+    });
+
+    it("does not change if footnotes in full original note, but not in extracted section", () => {
+        const originalNote = ["some markdown"];
+        const note = originalNote;
+        const completeOriginalNote = [
+            "# title",
+            "",
+            ...originalNote,
+            "",
+            "## sub section",
+            "[^1]: my footnotes"
+        ];
+        const noteWithFootnotes = doc.appendFootnotes(originalNote.join("\n"), note.join("\n"), completeOriginalNote);
+        assert.equal(noteWithFootnotes, note.join("\n"));
+     });
+
+    it("copies one referenced footnote from the last line of full content", () => {
+        const originalNote = ["some markdown[^1]"];
+        const note = originalNote;
+        const completeOriginalNote = [
+            "# title",
+            "",
+            ...originalNote,
+            "",
+            "## sub section",
+            "[^1]: my footnotes"
+        ];
+        const noteWithFootnotes = doc.appendFootnotes(originalNote.join("\n"), note.join("\n"), completeOriginalNote);
+        assert.equal(noteWithFootnotes, "some markdown[^1]\n[^1]: my footnotes");
+     });
+
+    /*
+    copies 1 footnotes from original
+    does not copy all footnotes
+    copies 2 or more footnotes from original
+    only copies each footnote once max
+    edge cases around footnotes markdown declaration syntax (https://www.markdownguide.org/extended-syntax/#footnotes)
+        footnote declared with words 
+        multiline footnotes
+        footnote inside the rest of the doc
+        multiline footnote inside the rest of the doc
+    */
+});
+
 
 async function loadTestFile(): Promise<string> {
     return await fs.readFile(newLocal, 'utf8');

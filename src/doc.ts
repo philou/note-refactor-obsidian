@@ -79,6 +79,14 @@ export default class NRDoc {
       return trimmedContent.split('\n');
     }
 
+    fullNoteContent(doc:Editor): string[] {
+      const startPosition = doc.offsetToPos(0);
+      const endPosition = doc.offsetToPos(doc.getValue().length);
+      const content = doc.getRange(startPosition, endPosition);
+      const trimmedContent = content.trim();
+      return trimmedContent.split('\n');
+    }
+
     contentSplitByHeading(doc:Editor, headingLevel: number): string[][] {
       const content = doc.getValue().split('\n');
       const parentHeading = new Array(headingLevel).join('#') + ' ';
@@ -122,4 +130,12 @@ export default class NRDoc {
       }
       return contentArr.join('\n').trim();
     }
+
+
+    appendFootnotes(originalNote:string, note:string, completeOriginalNote:string[]): string {
+      if (note.includes("[^1]"))
+        return note + "\n" + completeOriginalNote[completeOriginalNote.length - 1];
+      return note;
+    }
+
 }
