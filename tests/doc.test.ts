@@ -231,6 +231,22 @@ describe("Append Footnotes", () => {
         assert.equal(noteWithFootnotes, "some markdown[^1]\n[^1]: footnote 1");
      });
 
+     it("ignores footnotes which don't have a declaration", () => {
+        const originalNote = ["some markdown[^7]"];
+        const note = originalNote;
+        const completeOriginalNote = [
+            "# title",
+            "",
+            ...originalNote,
+            "",
+            "## sub section",
+            "[^1]: footnote 1",
+            "[^2]: footnote 2"
+        ];
+        const noteWithFootnotes = doc.appendFootnotes(originalNote.join("\n"), note.join("\n"), completeOriginalNote);
+        assert.equal(noteWithFootnotes, "some markdown[^7]");
+     });
+
     /*
     copies 1 footnotes from original
     does not copy all footnotes

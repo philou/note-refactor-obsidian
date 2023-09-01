@@ -142,7 +142,7 @@ export default class NRDoc {
           return note + "\n" + line;
         }
       }
-      return "NOT EXPECTED"
+      return note;
     }
 
 }
