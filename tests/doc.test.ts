@@ -215,6 +215,21 @@ describe("Append Footnotes", () => {
         assert.equal(noteWithFootnotes, "some markdown[^2]\n[^2]: footnote 2");
      });
 
+     it("captures the right footnote depending on the tag", () => {
+        const originalNote = ["some markdown[^1]"];
+        const note = originalNote;
+        const completeOriginalNote = [
+            "# title",
+            "",
+            ...originalNote,
+            "",
+            "## sub section",
+            "[^1]: footnote 1",
+            "[^2]: footnote 2"
+        ];
+        const noteWithFootnotes = doc.appendFootnotes(originalNote.join("\n"), note.join("\n"), completeOriginalNote);
+        assert.equal(noteWithFootnotes, "some markdown[^1]\n[^1]: footnote 1");
+     });
 
     /*
     copies 1 footnotes from original

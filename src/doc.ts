@@ -137,7 +137,12 @@ export default class NRDoc {
       if (match === null)
         return note;
 
-      return note + "\n" + completeOriginalNote[completeOriginalNote.length - 1];
+      for (let line of completeOriginalNote) {
+        if (line.startsWith(match[0] + ":")) {
+          return note + "\n" + line;
+        }
+      }
+      return "NOT EXPECTED"
     }
 
 }
