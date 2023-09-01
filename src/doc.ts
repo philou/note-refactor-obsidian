@@ -133,10 +133,11 @@ export default class NRDoc {
 
 
     appendFootnotes(originalNote:string, note:string, completeOriginalNote:string[]): string {
-      
-      if (/\[\^[1-9]\]/.test(note))
-        return note + "\n" + completeOriginalNote[completeOriginalNote.length - 1];
-      return note;
+      var match = /\[\^[1-9]\]/.exec(note)
+      if (match === null)
+        return note;
+
+      return note + "\n" + completeOriginalNote[completeOriginalNote.length - 1];
     }
 
 }
