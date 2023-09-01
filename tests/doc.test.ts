@@ -199,7 +199,7 @@ describe("Append Footnotes", () => {
         assert.equal(noteWithFootnotes, "some markdown[^1]\n[^1]: my footnotes");
      });
 
-     it("captures footnotes, whatever the tag", () => {
+     it("captures footnotes, whatever the tag number", () => {
         const originalNote = ["some markdown[^2]"];
         const note = originalNote;
         const completeOriginalNote = [
